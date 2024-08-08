@@ -1,5 +1,5 @@
 {
-  "app": "dotnet run --project src/CoffeeBrewer/CoffeeBrewer.csproj",
+  "app": "dotnet run --project src/CoffeeBrewer.Cdk.Cicd/CoffeeBrewer.Cdk.Cicd.csproj",
   "watch": {
     "include": [
       "**"
