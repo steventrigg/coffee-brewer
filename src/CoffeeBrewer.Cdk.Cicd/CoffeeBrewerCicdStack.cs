@@ -9,7 +9,7 @@ namespace CoffeeBrewer
     {
         internal CoffeeBrewerCicdStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
-            var pipeline = new CodePipeline(this, "coffee-brewer-pipeline", new CodePipelineProps
+            var pipeline = new CodePipeline(this, "Pipeline", new CodePipelineProps
             {
                 SelfMutation = true,
                 Synth = new ShellStep("Synth", new ShellStepProps
