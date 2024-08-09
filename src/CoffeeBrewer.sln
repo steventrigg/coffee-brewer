@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeBrewer.Cdk.Cicd", "CoffeeBrewer.Cdk.Cicd\CoffeeBrewer.Cdk.Cicd.csproj", "{D3DDCCAC-73F6-4B46-8F86-CDE0E0A4A467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeBrewer.Cdk.Cicd", "CoffeeBrewer.Cdk.Cicd\CoffeeBrewer.Cdk.Cicd.csproj", "{D3DDCCAC-73F6-4B46-8F86-CDE0E0A4A467}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E73782F-B2C4-472C-8859-649C1B76F98C}"
+	ProjectSection(SolutionItems) = preProject
+		..\cdk.json = ..\cdk.json
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeBrewer.Api", "CoffeeBrewer.Api\CoffeeBrewer.Api.csproj", "{357A0AC5-28BD-4139-8DEB-C766B253FDCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeBrewer.Api.Tests", "CoffeeBrewer.Api.Tests\CoffeeBrewer.Api.Tests.csproj", "{046BA4CD-8493-42C6-92DD-26A38DC97637}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D3DDCCAC-73F6-4B46-8F86-CDE0E0A4A467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +37,35 @@ Global
 		{D3DDCCAC-73F6-4B46-8F86-CDE0E0A4A467}.Release|x64.Build.0 = Release|Any CPU
 		{D3DDCCAC-73F6-4B46-8F86-CDE0E0A4A467}.Release|x86.ActiveCfg = Release|Any CPU
 		{D3DDCCAC-73F6-4B46-8F86-CDE0E0A4A467}.Release|x86.Build.0 = Release|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Debug|x64.Build.0 = Debug|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Debug|x86.Build.0 = Debug|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Release|x64.ActiveCfg = Release|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Release|x64.Build.0 = Release|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Release|x86.ActiveCfg = Release|Any CPU
+		{357A0AC5-28BD-4139-8DEB-C766B253FDCE}.Release|x86.Build.0 = Release|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Debug|x64.Build.0 = Debug|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Debug|x86.Build.0 = Debug|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Release|x64.ActiveCfg = Release|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Release|x64.Build.0 = Release|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Release|x86.ActiveCfg = Release|Any CPU
+		{046BA4CD-8493-42C6-92DD-26A38DC97637}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A05A473F-8412-4005-9FCD-C0AF881A1BB0}
 	EndGlobalSection
 EndGlobal
