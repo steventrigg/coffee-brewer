@@ -1,4 +1,6 @@
 using Amazon.CDK;
+using Amazon.CDK.AWS.CodeBuild;
+using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.Pipelines;
 using CoffeeBrewer.Cdk.Cicd.AppStack;
 using Constructs;
@@ -27,8 +29,13 @@ namespace CoffeeBrewer
             {
                 Pre = new[]
                 {
-                    new ShellStep("RunTests", new ShellStepProps
+                    new CodeBuildStep("RunTests", new CodeBuildStepProps
                     {
+                        BuildEnvironment = new BuildEnvironment
+                        {
+                            BuildImage = LinuxBuildImage.AMAZON_LINUX_2_5,
+                            ComputeType = ComputeType.SMALL
+                        },
                         Commands = new[]
                         {
                             "/bin/sh",
