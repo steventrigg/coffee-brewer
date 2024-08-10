@@ -1,6 +1,5 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeBuild;
-using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.Pipelines;
 using CoffeeBrewer.Cdk.Cicd.AppStack;
 using Constructs;
@@ -33,7 +32,7 @@ namespace CoffeeBrewer
                     {
                         BuildEnvironment = new BuildEnvironment
                         {
-                            BuildImage = LinuxBuildImage.AMAZON_LINUX_2_5,
+                            BuildImage = LinuxBuildImage.FromDockerRegistry("mcr.microsoft.com/dotnet/sdk:8.0"),
                             ComputeType = ComputeType.SMALL
                         },
                         Commands = new[]
