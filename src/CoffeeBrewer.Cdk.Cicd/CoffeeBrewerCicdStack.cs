@@ -25,11 +25,11 @@ namespace CoffeeBrewer
                 })
             });
 
-            pipeline.AddStage(new AppDeployStage(this, "App Deploy Stage"), new AddStageOpts
+            pipeline.AddStage(new AppDeployStage(this, "AppDeployStage"), new AddStageOpts
             {
                 Pre = new[]
                 {
-                    new CodeBuildStep("Run Tests", new CodeBuildStepProps
+                    new CodeBuildStep("RunTests", new CodeBuildStepProps
                     {
                         BuildEnvironment = new BuildEnvironment
                         {
