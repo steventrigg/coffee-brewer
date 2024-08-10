@@ -25,11 +25,11 @@ namespace CoffeeBrewer
                 })
             });
 
-            pipeline.AddStage(new AppDeployStage(this, "AppDeployStage"), new AddStageOpts
+            pipeline.AddStage(new AppDeployStage(this, "App Deploy Stage"), new AddStageOpts
             {
                 Pre = new[]
                 {
-                    new CodeBuildStep("RunTests", new CodeBuildStepProps
+                    new CodeBuildStep("Run Tests", new CodeBuildStepProps
                     {
                         BuildEnvironment = new BuildEnvironment
                         {
@@ -38,11 +38,7 @@ namespace CoffeeBrewer
                         },
                         Commands = new[]
                         {
-                            "/bin/sh",
-                            "-c",
-                            " dotnet tool install -g Amazon.Lambda.Tools" +
-                            " && dotnet build" +
-                            " && dotnet test"
+                            "dotnet test src -c Release --logger trx"
                         }
                     })
                 }
