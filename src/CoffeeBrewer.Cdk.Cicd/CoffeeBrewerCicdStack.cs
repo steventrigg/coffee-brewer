@@ -23,7 +23,23 @@ namespace CoffeeBrewer
                 })
             });
 
-            pipeline.AddStage(new AppDeployStage(this, "AppDeployStage"));
+            pipeline.AddStage(new AppDeployStage(this, "AppDeployStage"), new AddStageOpts
+            {
+                Pre = new[]
+                {
+                    new ShellStep("RunTests", new ShellStepProps
+                    {
+                        Commands = new[]
+                        {
+                            "/bin/sh",
+                            "-c",
+                            " dotnet tool install -g Amazon.Lambda.Tools" +
+                            " && dotnet build" +
+                            " && dotnet test"
+                        }
+                    })
+                }
+            });
         }
     }
 }
