@@ -13,5 +13,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="9.0.0" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoffeeBrewer.Adaptors\CoffeeBrewer.Adaptors.csproj" />
+    <ProjectReference Include="..\CoffeeBrewer.App\CoffeeBrewer.App.csproj" />
   </ItemGroup>
 </Project>

@@ -24,7 +24,5 @@ public class ValuesControllerTests
         Assert.Equal("[\"value1\",\"value2\"]", response.Body);
         Assert.True(response.Headers.ContainsKey("Content-Type"));
         Assert.Equal("application/json; charset=utf-8", response.Headers.First(x => x.Key == "Content-Type").Value);
-
-        Assert.False(true);
     }
 }

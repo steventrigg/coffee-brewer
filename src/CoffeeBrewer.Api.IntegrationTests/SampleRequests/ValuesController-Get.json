@@ -1,7 +1,7 @@
 {
   "version": "2.0",
-  "routeKey": "GET /api/values",
-  "rawPath": "/api/values",
+  "routeKey": "GET /brew-coffee",
+  "rawPath": "/brew-coffee",
   "rawQueryString": "",
   "cookies": [],
   "headers": {},
@@ -9,7 +9,7 @@
   "requestContext": {
     "http": {
       "method": "GET",
-      "path": "/api/values"
+      "path": "/brew-coffee"
     }
   },
   "body": "",

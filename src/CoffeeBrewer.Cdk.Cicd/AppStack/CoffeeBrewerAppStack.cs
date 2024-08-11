@@ -1,8 +1,10 @@
 ﻿using Amazon.CDK;
 using Amazon.CDK.AWS.Apigatewayv2;
+using Amazon.CDK.AWS.DynamoDB;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AwsApigatewayv2Integrations;
 using Constructs;
+using System.Collections.Generic;
 using HttpMethod = Amazon.CDK.AWS.Apigatewayv2.HttpMethod;
 
 namespace CoffeeBrewer.Cdk.Cicd.AppStack
@@ -26,6 +28,13 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
                 }
             };
 
+            //var table = new Table(this, "CoffeeBrewerHopperLevel", new TableProps
+            //{
+            //    TableName = "CoffeeBrewerHopperLevel",
+            //    PartitionKey = new Attribute { Name = "Id", Type = AttributeType.STRING },
+            //    BillingMode = BillingMode.PAY_PER_REQUEST
+            //});
+
             var coffeeBrewerApiLambda = new Function(this, "CoffeeBrewerApiFunction", new FunctionProps
             {
                 Runtime = Runtime.DOTNET_8,
@@ -34,7 +43,13 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
                 {
                     Bundling = buildOption
                 }),
+                Environment = new Dictionary<string, string>
+                {
+                    //{ "TABLE_NAME", table.TableName }
+                }
             });
+
+            //table.GrantReadWriteData(coffeeBrewerApiLambda);
 
             var api = new HttpApi(this, "CoffeeBrewerHttpApi", new HttpApiProps
             {
