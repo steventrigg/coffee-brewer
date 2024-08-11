@@ -39,7 +39,7 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
             {
                 Runtime = Runtime.DOTNET_8,
                 Handler = "CoffeeBrewer.Api::CoffeeBrewer.Api.LambdaEntryPoint::FunctionHandlerAsync",
-                Code = Code.FromAsset("./src/CoffeeBrewer.Api", new Amazon.CDK.AWS.S3.Assets.AssetOptions
+                Code = Code.FromAsset("./src", new Amazon.CDK.AWS.S3.Assets.AssetOptions
                 {
                     Bundling = buildOption
                 }),
