@@ -21,7 +21,14 @@ namespace CoffeeBrewer.App
                 if (ex != null)
                 {
                     // Short-circuit. A more ideal alternative would be to check all validators and return a list.
-                    return Task.FromResult((IResult)Activator.CreateInstance(typeof(IResult), ex));
+                    var result = (IResult?)Activator.CreateInstance(typeof(IResult), ex);
+
+                    if (result != null)
+                    {
+                        return Task.FromResult(result);
+                    }
+
+                    throw new Exception("Instance activation failed");
                 }
             }
 
