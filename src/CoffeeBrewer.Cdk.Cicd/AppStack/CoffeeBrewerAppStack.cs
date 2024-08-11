@@ -24,7 +24,7 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
                     "-c",
                     " dotnet tool install -g Amazon.Lambda.Tools" +
                     " && dotnet build" +
-                    " && dotnet lambda package --output-package /asset-output/function.zip"
+                    " && dotnet lambda package -pl CoffeeBrewer.Api --output-package /asset-output/function.zip"
                 }
             };
 
