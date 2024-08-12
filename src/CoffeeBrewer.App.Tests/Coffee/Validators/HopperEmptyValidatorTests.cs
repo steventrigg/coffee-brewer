@@ -45,7 +45,7 @@ namespace CoffeeBrewer.App.Tests.Coffee.Validators
 
             await sut.ValidateAsync(new BrewCoffeeQuery());
 
-            mockHopperLevelRepository.Verify(x => x.ResetAsync(It.Is<int>(y => y == defaultHopperLevel)), Times.Twice);
+            mockHopperLevelRepository.Verify(x => x.ResetAsync(It.Is<int>(y => y == defaultHopperLevel)), Times.Exactly(2));
         }
 
         [Theory]
