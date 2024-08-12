@@ -36,19 +36,22 @@ public class Startup
         services.AddAWSService<IAmazonDynamoDB>();
 
         // Quick and dirty alternative to running docker
-        if (_env.IsDevelopment())
-        {
-            services.AddTransient(typeof(IHopperLevelRepository), typeof(LocalHopperLevelRepository));
-        }
-        else
-        {
-            services.AddTransient<IHopperLevelRepository>(p => new DynDbHopperLevelRepository
-            (
-                p.GetRequiredService<IAmazonDynamoDB>(),
-                _hopperLevelTableName,
-                p.GetRequiredService<ILogger<DynDbHopperLevelRepository>>()
-            ));
-        }
+        //if (_env.IsDevelopment())
+        //{
+
+        // I could not get the lambda to connect to dynamo db, so restorting to just using this in-memory store.
+        services.AddTransient(typeof(IHopperLevelRepository), typeof(LocalHopperLevelRepository));
+
+        //}
+        //else
+        //{
+        //    services.AddTransient<IHopperLevelRepository>(p => new DynDbHopperLevelRepository
+        //    (
+        //        p.GetRequiredService<IAmazonDynamoDB>(),
+        //        _hopperLevelTableName,
+        //        p.GetRequiredService<ILogger<DynDbHopperLevelRepository>>()
+        //    ));
+        //}
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

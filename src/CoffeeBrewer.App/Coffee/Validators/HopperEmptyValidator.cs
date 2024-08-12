@@ -20,8 +20,6 @@ namespace CoffeeBrewer.App.Coffee.Validators
         {
             _logger.LogInformation("Validating hopper level!");
 
-            await _repository.ResetAsync(4);
-
             // Having done this, I'd probably move it into the handler as a policy so validators don't need to be async
             var level = await _repository.GetAsync();
 

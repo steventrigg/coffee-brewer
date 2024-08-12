@@ -1,7 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Microsoft.Extensions.Logging;
-using System.Reflection.Emit;
 
 namespace CoffeeBrewer.Adaptors.Data
 {
@@ -30,28 +29,21 @@ namespace CoffeeBrewer.Adaptors.Data
         public async Task<int> GetAsync()
         {
             _logger.LogInformation("Getting hopper level.");
-
-            try
+            
+            var request = new GetItemRequest
             {
-                var request = new GetItemRequest
+                TableName = _tableName,
+                Key = new Dictionary<string, AttributeValue>
                 {
-                    TableName = _tableName,
-                    Key = new Dictionary<string, AttributeValue>
-                    {
-                        { KEY, new AttributeValue { S = KEY_VALUE } }
-                    }
-                };
-
-                var response = await _dynamoDbClient.GetItemAsync(request);
-
-                if (response.Item != null && response.Item.ContainsKey(PROP_NAME))
-                {
-                    return int.Parse(response.Item[PROP_NAME].N);
+                    { KEY, new AttributeValue { S = KEY_VALUE } }
                 }
-            }
-            catch (Exception ex)
+            };
+            
+            var response = await _dynamoDbClient.GetItemAsync(request);
+            
+            if (response.Item != null && response.Item.ContainsKey(PROP_NAME))
             {
-                _logger.LogError("Dynamodb read error.", ex.Message);
+                return int.Parse(response.Item[PROP_NAME].N);
             }
 
             return default;
