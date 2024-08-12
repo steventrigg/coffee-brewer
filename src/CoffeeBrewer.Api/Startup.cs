@@ -42,7 +42,6 @@ public class Startup
         }
         else
         {
-
             services.AddTransient<IHopperLevelRepository>(p => new DynDbHopperLevelRepository
             (
                 p.GetRequiredService<IAmazonDynamoDB>(),
