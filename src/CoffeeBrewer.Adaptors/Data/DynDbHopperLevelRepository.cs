@@ -10,9 +10,9 @@ namespace CoffeeBrewer.Adaptors.Data
         private readonly string _tableName;
         private readonly ILogger<DynDbHopperLevelRepository> _logger;
 
-        private const string KEY = "Key";
-        private const string KEY_VALUE = "HopperLevel";
-        private const string LEVEL = "Level";
+        private const string KEY = "key";
+        private const string KEY_VALUE = "level";
+        private const string PROP_NAME = "level";
 
         public DynDbHopperLevelRepository(IAmazonDynamoDB dynamoDbClient, string tableName, ILogger<DynDbHopperLevelRepository> logger)
         {
@@ -30,19 +30,26 @@ namespace CoffeeBrewer.Adaptors.Data
         {
             _logger.LogInformation("Getting hopper level.");
 
-            var request = new GetItemRequest
+            try
             {
-                TableName = _tableName,
-                Key = new Dictionary<string, AttributeValue>
+                var request = new GetItemRequest
+                {
+                    TableName = _tableName,
+                    Key = new Dictionary<string, AttributeValue>
                 {
                     { KEY, new AttributeValue { S = KEY_VALUE } }
                 }
-            };
+                };
 
-            var response = await _dynamoDbClient.GetItemAsync(request);
-            if (response.Item != null && response.Item.ContainsKey(LEVEL))
+                var response = await _dynamoDbClient.GetItemAsync(request);
+
+                if (response.Item != null && response.Item.ContainsKey(PROP_NAME))
+                {
+                    return int.Parse(response.Item[PROP_NAME].N);
+                }
+            } catch (Exception ex)
             {
-                return int.Parse(response.Item[LEVEL].N);
+                _logger.LogError("Dynamodb read error.", ex.Message);
             }
 
             return default;
@@ -60,8 +67,8 @@ namespace CoffeeBrewer.Adaptors.Data
                 TableName = _tableName,
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { KEY, new AttributeValue { S = KEY_VALUE } },
-                    { LEVEL, new AttributeValue { N = (level - 1).ToString() } }
+                    { KEY, new AttributeValue(KEY_VALUE) },
+                    { PROP_NAME, new AttributeValue((level - 1).ToString()) }
                 }
             };
 
@@ -77,8 +84,8 @@ namespace CoffeeBrewer.Adaptors.Data
                 TableName = _tableName,
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { KEY, new AttributeValue { S = KEY_VALUE } },
-                    { LEVEL, new AttributeValue { N = level.ToString() } }
+                    { KEY, new AttributeValue(KEY_VALUE) },
+                    { PROP_NAME, new AttributeValue(level.ToString()) }
                 }
             };
 
