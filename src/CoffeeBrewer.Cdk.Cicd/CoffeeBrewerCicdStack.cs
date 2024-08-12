@@ -39,7 +39,7 @@ namespace CoffeeBrewer
                         {
                             "dotnet test src/CoffeeBrewer.Api.Tests -c Release --logger trx",
                             "dotnet test src/CoffeeBrewer.App.Tests -c Release --logger trx",
-                            "dotnet test src/CoffeeBrewer.Adaptor.Tests -c Release --logger trx"
+                            "dotnet test src/CoffeeBrewer.Adaptors.Tests -c Release --logger trx"
                         }
                     })
                 }
