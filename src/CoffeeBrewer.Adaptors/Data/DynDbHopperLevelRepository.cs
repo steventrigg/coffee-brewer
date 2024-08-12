@@ -1,6 +1,7 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Microsoft.Extensions.Logging;
+using System.Reflection.Emit;
 
 namespace CoffeeBrewer.Adaptors.Data
 {
@@ -36,9 +37,9 @@ namespace CoffeeBrewer.Adaptors.Data
                 {
                     TableName = _tableName,
                     Key = new Dictionary<string, AttributeValue>
-                {
-                    { KEY, new AttributeValue { S = KEY_VALUE } }
-                }
+                    {
+                        { KEY, new AttributeValue { S = KEY_VALUE } }
+                    }
                 };
 
                 var response = await _dynamoDbClient.GetItemAsync(request);
@@ -47,7 +48,8 @@ namespace CoffeeBrewer.Adaptors.Data
                 {
                     return int.Parse(response.Item[PROP_NAME].N);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError("Dynamodb read error.", ex.Message);
             }
@@ -67,8 +69,8 @@ namespace CoffeeBrewer.Adaptors.Data
                 TableName = _tableName,
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { KEY, new AttributeValue(KEY_VALUE) },
-                    { PROP_NAME, new AttributeValue((level - 1).ToString()) }
+                    { KEY, new AttributeValue { S = KEY_VALUE } },
+                    { PROP_NAME, new AttributeValue { N = (level - 1).ToString() } }
                 }
             };
 
@@ -84,8 +86,8 @@ namespace CoffeeBrewer.Adaptors.Data
                 TableName = _tableName,
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { KEY, new AttributeValue(KEY_VALUE) },
-                    { PROP_NAME, new AttributeValue(level.ToString()) }
+                    { KEY, new AttributeValue { S = KEY_VALUE } },
+                    { PROP_NAME, new AttributeValue { N = level.ToString() } }
                 }
             };
 

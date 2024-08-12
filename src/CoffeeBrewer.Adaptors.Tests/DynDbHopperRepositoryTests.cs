@@ -18,7 +18,7 @@ namespace CoffeeBrewer.Adaptors.Tests
         [Fact]
         public async void Get_Level_Returns_Level_Number()
         {
-            const string tableName = "hopperlevel";
+            const string tableName = "hopperleveltable";
             const int expectedLevel = 4;
 
             var mockDynamoDbClient = new Mock<IAmazonDynamoDB>();
@@ -27,8 +27,8 @@ namespace CoffeeBrewer.Adaptors.Tests
             {
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { "Key", new AttributeValue { S = "HopperLevel" } },
-                    { "Level", new AttributeValue { N = expectedLevel.ToString() } }
+                    { "key", new AttributeValue { S = "level" } },
+                    { "level", new AttributeValue { N = expectedLevel.ToString() } }
                 }
             };
 
@@ -56,8 +56,8 @@ namespace CoffeeBrewer.Adaptors.Tests
             {
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { "Key", new AttributeValue { S = "HopperLevel" } },
-                    { "Level", new AttributeValue { N = originalLevel.ToString() } }
+                    { "key", new AttributeValue { S = "level" } },
+                    { "level", new AttributeValue { N = originalLevel.ToString() } }
                 }
             };
 
@@ -69,7 +69,7 @@ namespace CoffeeBrewer.Adaptors.Tests
 
             await sut.DecrementAsync();
 
-            mockDynamoDbClient.Verify(x => x.PutItemAsync(It.Is<PutItemRequest>(y => y.Item["Level"].N == expectedLevel.ToString()), default), Times.Once);
+            mockDynamoDbClient.Verify(x => x.PutItemAsync(It.Is<PutItemRequest>(y => y.Item["level"].N == expectedLevel.ToString()), default), Times.Once);
         }
 
         [Fact]
@@ -84,8 +84,8 @@ namespace CoffeeBrewer.Adaptors.Tests
             {
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    { "Key", new AttributeValue { S = "HopperLevel" } },
-                    { "Level", new AttributeValue { N = originalLevel.ToString() } }
+                    { "key", new AttributeValue { S = "level" } },
+                    { "level", new AttributeValue { N = originalLevel.ToString() } }
                 }
             };
 
@@ -97,7 +97,7 @@ namespace CoffeeBrewer.Adaptors.Tests
 
             await sut.ResetAsync(originalLevel);
 
-            mockDynamoDbClient.Verify(x => x.PutItemAsync(It.Is<PutItemRequest>(y => y.Item["Level"].N == originalLevel.ToString()), default), Times.Once);
+            mockDynamoDbClient.Verify(x => x.PutItemAsync(It.Is<PutItemRequest>(y => y.Item["level"].N == originalLevel.ToString()), default), Times.Once);
         }
     }
 }
