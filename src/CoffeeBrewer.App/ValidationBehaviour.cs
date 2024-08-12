@@ -17,7 +17,7 @@ namespace CoffeeBrewer.App
 
             foreach (var validator in _validators)
             {
-                var ex = validator.Validate(request);
+                var ex = validator.ValidateAsync(request);
                 if (ex != null)
                 {
                     // Short-circuit. A more ideal alternative would be to check all validators and return a list.

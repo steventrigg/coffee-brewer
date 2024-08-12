@@ -1,8 +1,11 @@
-﻿using CoffeeBrewer.Adaptors.Data;
+﻿using Amazon.DynamoDBv2;
+using Amazon.Extensions.NETCore.Setup;
+using CoffeeBrewer.Adaptors.Data;
 using CoffeeBrewer.App;
 using CoffeeBrewer.App.Coffee.Queries;
 using CoffeeBrewer.App.Coffee.Validators;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeBrewer.Api;
 
@@ -27,10 +30,22 @@ public class Startup
 
         services.AddControllers();
 
-        //if (_env.IsDevelopment())
-        //{
-        services.AddTransient(typeof(IHopperLevelRepository), typeof(LocalHopperLevelRepository));
-        //}
+        services.AddDefaultAWSOptions(new AWSOptions{ Region = Amazon.RegionEndpoint.USWest2 });
+        services.AddAWSService<IAmazonDynamoDB>();
+
+        // Quick and dirty alternative to running docker
+        if (_env.IsDevelopment())
+        {
+            services.AddTransient(typeof(IHopperLevelRepository), typeof(LocalHopperLevelRepository));
+        }
+        else
+        {
+            services.AddTransient<IHopperLevelRepository>(p => new DynDbHopperLevelRepository
+            (
+                p.GetRequiredService<IAmazonDynamoDB>(),
+                Configuration["HopperLevelTableName"] ?? string.Empty
+            ));
+        }
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

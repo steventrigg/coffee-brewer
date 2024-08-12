@@ -28,12 +28,12 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
                 }
             };
 
-            //var table = new Table(this, "CoffeeBrewerHopperLevel", new TableProps
-            //{
-            //    TableName = "CoffeeBrewerHopperLevel",
-            //    PartitionKey = new Attribute { Name = "Id", Type = AttributeType.STRING },
-            //    BillingMode = BillingMode.PAY_PER_REQUEST
-            //});
+            var table = new Table(this, "CoffeeBrewerHopperLevel", new TableProps
+            {
+                TableName = "CoffeeBrewerHopperLevel",
+                PartitionKey = new Attribute { Name = "Key", Type = AttributeType.STRING },
+                BillingMode = BillingMode.PAY_PER_REQUEST
+            });
 
             var coffeeBrewerApiLambda = new Function(this, "CoffeeBrewerApiFunction", new FunctionProps
             {
@@ -45,11 +45,11 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
                 }),
                 Environment = new Dictionary<string, string>
                 {
-                    //{ "TABLE_NAME", table.TableName }
+                    { "HopperLevelTableName", table.TableName }
                 }
             });
 
-            //table.GrantReadWriteData(coffeeBrewerApiLambda);
+            table.GrantReadWriteData(coffeeBrewerApiLambda);
 
             var api = new HttpApi(this, "CoffeeBrewerHttpApi", new HttpApiProps
             {

@@ -7,7 +7,7 @@ namespace CoffeeBrewer
         public static void Main(string[] args)
         {
             var app = new App();
-            new CoffeeBrewerCicdStack(app, "CoffeeBrewerStack", new StackProps
+            _ = new CoffeeBrewerCicdStack(app, "CoffeeBrewerStack", new StackProps
             {
                 Env = new Environment
                 {

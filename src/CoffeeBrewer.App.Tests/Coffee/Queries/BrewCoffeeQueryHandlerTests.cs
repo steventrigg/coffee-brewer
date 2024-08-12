@@ -29,7 +29,7 @@ namespace CoffeeBrewer.App.Tests.Coffee.Validators
 
             await sut.Handle(new BrewCoffeeQuery(), default);
 
-            mockHopperLevelRepository.Verify(x => x.Decrement(), Times.Once);
+            mockHopperLevelRepository.Verify(x => x.DecrementAsync(), Times.Once);
         }
     }
 }

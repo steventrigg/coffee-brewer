@@ -1,28 +1,34 @@
-﻿namespace CoffeeBrewer.Adaptors.Data
+﻿using Amazon.DynamoDBv2.Model.Internal.MarshallTransformations;
+
+namespace CoffeeBrewer.Adaptors.Data
 {
     public class LocalHopperLevelRepository : IHopperLevelRepository
     {
         private const int Default = 4;
         private static int? _hopperLevel = 4;
 
-        public int Get()
+        public Task<int> GetAsync()
         {
             if (!_hopperLevel.HasValue)
             {
                 _hopperLevel = Default;
             }
 
-            return _hopperLevel.Value;
+            return Task.FromResult(_hopperLevel.Value);
         }
 
-        public void Decrement()
+        public Task DecrementAsync()
         {
             _hopperLevel--;
+
+            return Task.CompletedTask;
         }
 
-        public void Reset(int level = Default)
+        public Task ResetAsync(int level = Default)
         {
             _hopperLevel = level;
+
+            return Task.CompletedTask;
         }
     }
 }

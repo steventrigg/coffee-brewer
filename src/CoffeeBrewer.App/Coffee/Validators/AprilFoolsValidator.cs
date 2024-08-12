@@ -13,14 +13,14 @@ namespace CoffeeBrewer.App.Coffee.Validators
             _now = now ?? DateTime.Now;
         }
 
-        public Exception? Validate(BrewCoffeeQuery request)
+        public Task<Exception?> ValidateAsync(BrewCoffeeQuery request)
         {
             if (_now.Day == 1 && _now.Month == 4)
             {
-                return new BrewerIsATeapotException();
+                return Task.FromResult((Exception?)new BrewerIsATeapotException());
             }
 
-            return null;
+            return Task.FromResult((Exception?)null);
         }
     }
 }

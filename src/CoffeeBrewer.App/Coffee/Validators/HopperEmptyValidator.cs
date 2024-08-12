@@ -13,13 +13,14 @@ namespace CoffeeBrewer.App.Coffee.Validators
             _repository = repository;
         }
 
-        public Exception? Validate(BrewCoffeeQuery request)
+        public async Task<Exception?> ValidateAsync(BrewCoffeeQuery request)
         {
-            var level = _repository.Get();
+            // Having done this, I'd probably move it into the handler as a policy so validators don't need to be async
+            var level = await _repository.GetAsync();
 
             if (level == 0)
             {
-                _repository.Reset(4);
+                await _repository.ResetAsync(4);
 
                 return new BrewerEmptyException();
             }

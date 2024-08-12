@@ -15,11 +15,11 @@ namespace CoffeeBrewer.App.Coffee.Queries
             _repository = repository;
         }
 
-        public Task<Result<Brew>> Handle(BrewCoffeeQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Brew>> Handle(BrewCoffeeQuery request, CancellationToken cancellationToken)
         {
-            _repository.Decrement();
+            await _repository.DecrementAsync();
 
-            return Task.FromResult(new Result<Brew>(new Brew()));
+            return new Result<Brew>(new Brew());
         }
     }
 }

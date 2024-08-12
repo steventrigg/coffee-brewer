@@ -4,6 +4,6 @@ namespace CoffeeBrewer.App
 {
     public interface IValidator<TRequest> where TRequest : IBaseRequest
     {
-        public Exception? Validate(TRequest request);
+        public Task<Exception?> ValidateAsync(TRequest request);
     }
 }

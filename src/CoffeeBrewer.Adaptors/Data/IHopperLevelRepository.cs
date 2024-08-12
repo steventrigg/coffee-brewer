@@ -2,10 +2,10 @@
 {
     public interface IHopperLevelRepository
     {
-        public int Get();
+        public Task<int> GetAsync();
 
-        public void Decrement();
+        public Task DecrementAsync();
 
-        public void Reset(int level);
+        public Task ResetAsync(int level);
     }
 }

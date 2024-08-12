@@ -1,10 +1,6 @@
-# Welcome to your CDK C# project!
+# Coffee Brewer Application
 
-This is a blank project for CDK development with C#.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-It uses the [.NET CLI](https://docs.microsoft.com/dotnet/articles/core/) to compile and execute your project.
+Call the API to Brew your coffee!!
 
 ## Useful commands
 
