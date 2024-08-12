@@ -16,23 +16,24 @@ namespace CoffeeBrewer.Adaptors.Weather
 
         public async Task<double> GetCurrentTemperatureInCAsync(double lat, double lon, CancellationToken ctx)
         {
-            // I would also add if I had time: tests, retry policy and caching
-
-            var url = $"{HOST}?lat={lat}&lon={lon}&units=metric&appid={KEY}";
-
-            var response = await _httpClient.GetAsync(url, ctx);
-
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-
-            var weather = JsonSerializer.Deserialize<WeatherModel>(content, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-            return weather?.Main.Temp
-                ?? throw new Exception("Weather not found");
+            return new Random().Next(0, 50);
+            //// I would also add if I had time: tests, retry policy and caching
+            //
+            //var url = $"{HOST}?lat={lat}&lon={lon}&units=metric&appid={KEY}";
+            //
+            //var response = await _httpClient.GetAsync(url, ctx);
+            //
+            //response.EnsureSuccessStatusCode();
+            //
+            //var content = await response.Content.ReadAsStringAsync();
+            //
+            //var weather = JsonSerializer.Deserialize<WeatherModel>(content, new JsonSerializerOptions
+            //{
+            //    PropertyNameCaseInsensitive = true
+            //});
+            //
+            //return weather?.Main.Temp
+            //    ?? throw new Exception("Weather not found");
         }
     }
 }
