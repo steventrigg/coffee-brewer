@@ -1,12 +1,20 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using CoffeeBrewer.Adaptors.Data;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace CoffeeBrewer.Adaptors.Tests
 {
     public class DynDbHopperRepositoryTests
     {
+        private readonly Mock<ILogger<DynDbHopperLevelRepository>> _mockLogger;
+
+        public DynDbHopperRepositoryTests()
+        {
+            _mockLogger = new Mock<ILogger<DynDbHopperLevelRepository>>();
+        }
+
         [Fact]
         public async void Get_Level_Returns_Level_Number()
         {
@@ -28,7 +36,7 @@ namespace CoffeeBrewer.Adaptors.Tests
                 x.GetItemAsync(It.Is<GetItemRequest>(y => y.TableName == tableName), default))
                     .ReturnsAsync(mockResponse);
 
-            var sut = new DynDbHopperLevelRepository(mockDynamoDbClient.Object, tableName);
+            var sut = new DynDbHopperLevelRepository(mockDynamoDbClient.Object, tableName, _mockLogger.Object);
 
             var result = await sut.GetAsync();
 
@@ -57,7 +65,7 @@ namespace CoffeeBrewer.Adaptors.Tests
                 x.GetItemAsync(It.Is<GetItemRequest>(y => y.TableName == tableName), default))
                     .ReturnsAsync(mockResponse);
 
-            var sut = new DynDbHopperLevelRepository(mockDynamoDbClient.Object, tableName);
+            var sut = new DynDbHopperLevelRepository(mockDynamoDbClient.Object, tableName, _mockLogger.Object);
 
             await sut.DecrementAsync();
 
@@ -85,7 +93,7 @@ namespace CoffeeBrewer.Adaptors.Tests
                 x.GetItemAsync(It.Is<GetItemRequest>(y => y.TableName == tableName), default))
                     .ReturnsAsync(mockResponse);
 
-            var sut = new DynDbHopperLevelRepository(mockDynamoDbClient.Object, tableName);
+            var sut = new DynDbHopperLevelRepository(mockDynamoDbClient.Object, tableName, _mockLogger.Object);
 
             await sut.ResetAsync(originalLevel);
 

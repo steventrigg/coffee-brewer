@@ -1,5 +1,7 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.Logging;
 
 namespace CoffeeBrewer.Adaptors.Data
 {
@@ -12,10 +14,15 @@ namespace CoffeeBrewer.Adaptors.Data
         private const string KEY_VALUE = "HopperLevel";
         private const string LEVEL = "Level";
 
-        public DynDbHopperLevelRepository(IAmazonDynamoDB dynamoDbClient, string tableName)
+        public DynDbHopperLevelRepository(IAmazonDynamoDB dynamoDbClient, string tableName, ILogger<DynDbHopperLevelRepository> logger)
         {
             _dynamoDbClient = dynamoDbClient;
             _tableName = tableName;
+
+            if (string.IsNullOrEmpty(tableName))
+            {
+                logger.LogError("Hopper level table name is empty.");
+            }
         }
 
         public async Task<int> GetAsync()

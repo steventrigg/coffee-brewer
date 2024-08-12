@@ -5,18 +5,20 @@ using CoffeeBrewer.App;
 using CoffeeBrewer.App.Coffee.Queries;
 using CoffeeBrewer.App.Coffee.Validators;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeBrewer.Api;
 
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
+    private readonly string _hopperLevelTableName;
 
     public Startup(IConfiguration configuration, IWebHostEnvironment env)
     {
         Configuration = configuration;
         _env = env;
+
+        _hopperLevelTableName = Environment.GetEnvironmentVariable("HopperLevelTableName") ?? string.Empty;
     }
 
     public IConfiguration Configuration { get; }
@@ -40,10 +42,12 @@ public class Startup
         }
         else
         {
+
             services.AddTransient<IHopperLevelRepository>(p => new DynDbHopperLevelRepository
             (
                 p.GetRequiredService<IAmazonDynamoDB>(),
-                Configuration["HopperLevelTableName"] ?? string.Empty
+                _hopperLevelTableName,
+                p.GetRequiredService<ILogger<DynDbHopperLevelRepository>>()
             ));
         }
     }
