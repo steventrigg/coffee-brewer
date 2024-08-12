@@ -2,7 +2,7 @@
 {
     public class Brew
     {
-        public string Message { get; } = "Your piping hot coffee is ready";
-        public DateTimeOffset Prepared { get; } = DateTimeOffset.UtcNow;
+        public string Message { get; init; } = "Your piping hot coffee is ready";
+        public DateTimeOffset Prepared { get; init; } = DateTimeOffset.UtcNow;
     }
 }
