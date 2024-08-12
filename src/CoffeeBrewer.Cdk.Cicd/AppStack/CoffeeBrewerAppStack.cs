@@ -32,7 +32,7 @@ namespace CoffeeBrewer.Cdk.Cicd.AppStack
             {
                 TableName = "CoffeeBrewerHopperLevel",
                 PartitionKey = new Attribute { Name = "Key", Type = AttributeType.STRING },
-                BillingMode = BillingMode.PAY_PER_REQUEST
+                BillingMode = BillingMode.PAY_PER_REQUEST,
             });
 
             var coffeeBrewerApiLambda = new Function(this, "CoffeeBrewerApiFunction", new FunctionProps
