@@ -1,11 +1,20 @@
 using CoffeeBrewer.App.Coffee.Exceptions;
 using CoffeeBrewer.App.Coffee.Queries;
 using CoffeeBrewer.App.Coffee.Validators;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace CoffeeBrewer.App.Tests.Coffee.Validators
 {
     public class AprilFoolsValidatorTests
     {
+        private readonly Mock<ILogger<AprilFoolsValidator<BrewCoffeeQuery>>> _mockLogger;
+
+        public AprilFoolsValidatorTests()
+        {
+            _mockLogger = new Mock<ILogger<AprilFoolsValidator<BrewCoffeeQuery>>>();
+        }
+
         [Theory]
         [InlineData(1990, 4, 1)]
         [InlineData(2024, 4, 1)]
@@ -14,7 +23,7 @@ namespace CoffeeBrewer.App.Tests.Coffee.Validators
         {
             var aprilFoolsDate = new DateTime(year, month, day);
 
-            var sut = new AprilFoolsValidator<object>(aprilFoolsDate);
+            var sut = new AprilFoolsValidator<object>(_mockLogger.Object, aprilFoolsDate);
 
             var exception = await sut.ValidateAsync(new BrewCoffeeQuery());
 
@@ -28,7 +37,7 @@ namespace CoffeeBrewer.App.Tests.Coffee.Validators
         {
             var notAprilFoolsDate = new DateTime(year, month, day);
 
-            var sut = new AprilFoolsValidator<object>(notAprilFoolsDate);
+            var sut = new AprilFoolsValidator<object>(_mockLogger.Object, notAprilFoolsDate);
 
             var exception = await sut.ValidateAsync(new BrewCoffeeQuery());
 
